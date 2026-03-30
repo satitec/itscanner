@@ -1,0 +1,57 @@
+IT-Network DocuScanner Changelog
+
+v1.01.5 — CSV/Excel Export Fix + Worker-Prozess
+  - CSV-Export: NULL-Eintraege werden jetzt gefiltert (Where-Object { $null -ne $_ })
+  - CSV-Export: Jeder Export-Schritt einzeln in Try/Catch — Einzelfehler stoppen nicht alles
+  - CSV-Export: Detailliertes Logging pro Datei (Dateiname + Zeilenanzahl)
+  - Excel-Export: $addSheet filtert NULL-Rows und faengt Fehler pro Sheet ab
+  - Leere Datensaetze erzeugen keine leeren CSV-Dateien mehr
+
+v1.01.4 — Worker-Prozess Architektur (UI-Freeze endgueltig behoben)
+  - Scan laeuft jetzt in einem eigenen powershell.exe Hintergrund-Prozess
+  - UI bleibt GARANTIERT responsive — kein "Keine Rueckmeldung" mehr moeglich
+  - Fortschritt und Log werden per Temp-Dateien (IPC) live an die UI uebermittelt
+  - Scan-Funktionen werden zur Laufzeit via Get-Command extrahiert und in den Worker injiziert
+  - Cancel bricht den Worker-Prozess sauber ab (Process.Kill)
+  - Ergebnisse werden per Export-Clixml/Import-Clixml zwischen Prozessen uebertragen
+  - Export (HTML, Excel, CSV, BSI) laeuft weiterhin im UI-Prozess nach Scan-Ende
+  - KeepAlive Timer Ansatz (v1.01.3) entfernt — half nicht bei blockierenden AD-Cmdlets
+  - Automatisches Cleanup des Temp-Verzeichnisses nach Scan-Ende oder Abbruch
+
+v1.01.3 — KeepAlive Timer (UI-Freeze Fix)
+  - Runspace-Multithreading entfernt (PS2EXE-inkompatibel, Absturz mit kaskadierten Fehlerdialogen)
+  - Neuer Ansatz: WinForms KeepAlive Timer feuert DoEvents() alle 100ms waehrend des Scans
+  - UI bleibt responsive, kein "Keine Rueckmeldung" mehr bei langen AD- und Netzwerk-Scans
+  - Jeder Scan-Schritt in eigenem Try/Catch — Einzelfehler stoppen nicht den gesamten Scan
+  - Zusaetzliche DoEvents()-Aufrufe nach jedem groesseren Scan-Schritt
+  - Cancel-Funktion prueft Flag nach jedem Schritt mit DoEvents()
+  - Timer wird im Finally-Block sauber gestoppt und disposed
+
+v1.01.2 — Runspace Multithreading (UI bleibt responsive)
+  - Scan-Logik komplett auf PowerShell Runspace umgebaut (Hintergrund-Thread)
+  - UI friert nicht mehr ein bei langen AD- oder Netzwerk-Scans ("Keine Rueckmeldung" behoben)
+  - WinForms Timer fuer thread-safe UI-Updates (Fortschritt, Status, Log)
+  - Synchronized Hashtable fuer Kommunikation zwischen Scan-Thread und UI
+  - Log-Eintraege aus dem Hintergrund werden sauber im UI angezeigt
+  - Cancel-Funktion arbeitet jetzt thread-safe ueber Progress-Flag
+  - Export/Report-Generierung bleibt auf dem UI-Thread (nach Scan-Abschluss)
+  - Automatisches Aufraumen des Runspace nach Scan-Ende
+
+v1.01.1 — Release + 7-Tage Trial
+  - Version 1.01.1 Release
+  - 7-Tage Testversion: Scannen moeglich, Export deaktiviert
+  - Trial-Zeitraum verschluesselt und maschinengebunden gespeichert
+  - Trial-Banner im Dashboard mit Resttagen-Anzeige
+  - Export-Checkboxen in der Ausgabe-Seite im Trial deaktiviert
+  - Trial-Button im Lizenzdialog mit Tage-Countdown
+  - "Jetzt Vollversion erwerben" Links zum Stripe Checkout
+  - Auto-Update via GitHub Releases API
+  - Subscription-Lizenzierung mit Online-Validierung
+  - BSI IT-Grundschutz Compliance Report (Ampel-System)
+  - AES-256 verschluesselte Konfiguration (maschinengebunden)
+  - Netzwerk-Topologie Visualisierung
+  - Dashboard mit klickbaren Detail-Karten
+  - Scan-Planung (einmalig/taeglich/woechentlich/monatlich)
+  - HTML, Excel, CSV und BSI Report Ausgabe
+  - 4 Sprachen: Deutsch, English, Francais, Espanol
+  - Glassmorphism Dark UI
