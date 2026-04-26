@@ -1,0 +1,10 @@
+Copyright (c) Sat-iTec Systemhaus GmbH
+All Rights Reserved.
+
+This software is proprietary and closed-source.
+No part of this software may be reproduced, distributed, or
+transmitted in any form or by any means without prior written
+permission from Sat-iTec Systemhaus GmbH.
+
+For licensing inquiries: support@sat-itec.se
+Website: https://www.sat-itec.se
