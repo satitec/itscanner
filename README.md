@@ -1,6 +1,6 @@
 # IT-Network DocuScanner
 
-**Sat-iTec Systemhaus GmbH** · https://www.sat-itec.se
+**Sat-iTec Systemhaus GmbH** · https://www.sat-itec.se · **Produkt-Website:** [itnetwork-docu.com](https://itnetwork-docu.com)
 
 Proprietaeres Tool zur Netzwerk-Inventarisierung und IT-Dokumentation
 nach BSI-Grundschutz.
